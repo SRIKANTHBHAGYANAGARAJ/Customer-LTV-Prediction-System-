@@ -1,0 +1,719 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   BASE LAYOUT
+   ============================================================ */
+
+html {
+  scrollbar-gutter: stable;
+}
+
+body {
+  @apply bg-dark text-slate-100 font-primary;
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #020617;
+  background-image:
+    radial-gradient(
+      ellipse at 20% 50%,
+      rgba(56, 189, 248, 0.08) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse at 80% 50%,
+      rgba(139, 92, 246, 0.08) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse at 50% 100%,
+      rgba(56, 189, 248, 0.05) 0%,
+      transparent 50%
+    );
+}
+
+/* ============================================================
+   CUSTOM CONTAINER
+   ============================================================ */
+
+.container {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+/* ============================================================
+   RESET LINKS
+   ============================================================ */
+
+a {
+  @apply text-neon no-underline;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  @apply text-neonSoft;
+  text-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+}
+
+button {
+  @apply font-primary;
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #020617;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #38bdf8, #818cf8);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #7dd3fc, #a78bfa);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+}
+
+/* ============================================================
+   FADE-IN ANIMATIONS
+   ============================================================ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.delay-300 {
+  animation-delay: 0.3s;
+}
+
+.delay-500 {
+  animation-delay: 0.5s;
+}
+
+/* ============================================================
+   CROMA MART LOGO - ANIMATED GLOW
+   ============================================================ */
+
+.croma-mart {
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(202, 221, 221, 0.3),
+    rgba(56, 189, 248, 0.15)
+  );
+  border: 2px solid rgba(56, 189, 248, 0.3);
+  border-radius: 50%;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  animation: logoPulse 3s ease-in-out infinite;
+}
+
+.croma-mart::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    rgba(56, 189, 248, 0.4),
+    transparent,
+    rgba(139, 92, 246, 0.4),
+    transparent,
+    rgba(56, 189, 248, 0.4),
+    transparent
+  );
+  animation: spinRing 4s linear infinite;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.croma-mart:hover::before {
+  opacity: 1;
+}
+
+.croma-mart:hover {
+  box-shadow:
+    0 0 30px rgba(56, 189, 248, 0.4),
+    0 0 60px rgba(56, 189, 248, 0.2),
+    0 0 100px rgba(56, 189, 248, 0.1),
+    inset 0 0 30px rgba(56, 189, 248, 0.1);
+  transform: scale(1.08) rotate(-3deg);
+  border-color: rgba(56, 189, 248, 0.8);
+}
+
+.croma-mart span {
+  text-shadow:
+    0 0 20px rgba(56, 189, 248, 0.3),
+    0 0 40px rgba(56, 189, 248, 0.1);
+  transition: all 0.3s ease;
+}
+
+.croma-mart:hover span {
+  text-shadow:
+    0 0 30px rgba(56, 189, 248, 0.6),
+    0 0 60px rgba(56, 189, 248, 0.3),
+    0 0 90px rgba(56, 189, 248, 0.1);
+}
+
+/* ============================================================
+   LOGO ANIMATIONS
+   ============================================================ */
+
+@keyframes logoPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.1);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 0 40px rgba(56, 189, 248, 0.2);
+  }
+}
+
+@keyframes spinRing {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================================
+   LEFT-TO-RIGHT SHIMMER ANIMATIONS
+   ============================================================ */
+
+/* Fast shimmer - for top separators and small elements */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* Medium shimmer - for background glows */
+@keyframes shimmer-glow {
+  0% {
+    transform: translateX(-100%) scaleX(1);
+  }
+  50% {
+    transform: translateX(0%) scaleX(1.5);
+  }
+  100% {
+    transform: translateX(100%) scaleX(1);
+  }
+}
+
+.animate-shimmer-glow {
+  animation: shimmer-glow 6s ease-in-out infinite;
+}
+
+/* Slow shimmer - for secondary background glows */
+@keyframes shimmer-slow {
+  0% {
+    transform: translateX(-150%);
+  }
+  100% {
+    transform: translateX(150%);
+  }
+}
+
+.animate-shimmer-slow {
+  animation: shimmer-slow 8s ease-in-out infinite;
+}
+
+/* Ultra slow shimmer - for large background elements */
+@keyframes shimmer-ultra-slow {
+  0% {
+    transform: translateX(-200%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+.animate-shimmer-ultra-slow {
+  animation: shimmer-ultra-slow 12s ease-in-out infinite;
+}
+
+/* ============================================================
+   ROTATING RING ANIMATIONS
+   ============================================================ */
+
+/* Slow spin for rings around logos */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 6s linear infinite;
+}
+
+/* Medium speed spin */
+@keyframes spin-medium {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-medium {
+  animation: spin-medium 4s linear infinite;
+}
+
+/* Fast spin for loading spinners */
+@keyframes spin-fast {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-fast {
+  animation: spin-fast 1s linear infinite;
+}
+
+/* ============================================================
+   GLASS FOOTER
+   ============================================================ */
+
+.glass-footer {
+  @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-xl;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-footer::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at center,
+    rgba(56, 189, 248, 0.05) 0%,
+    transparent 70%
+  );
+  animation: footerGlow 6s ease-in-out infinite;
+}
+
+.glass-footer:hover {
+  border-color: rgba(56, 189, 248, 0.2);
+  box-shadow: 0 0 50px rgba(56, 189, 248, 0.1);
+  transform: translateY(-5px);
+}
+
+@keyframes footerGlow {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* ============================================================
+   FOOTER TITLE
+   ============================================================ */
+
+.footer-title {
+  @apply text-white font-semibold mb-4 tracking-wide;
+  position: relative;
+  display: inline-block;
+}
+
+.footer-title::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #38bdf8, transparent);
+  transition: width 0.4s ease;
+}
+
+.glass-footer:hover .footer-title::after {
+  width: 100%;
+}
+
+/* ============================================================
+   FOOTER LINKS
+   ============================================================ */
+
+.footer-links li {
+  @apply text-white/70 text-sm mb-2 cursor-pointer transition-all duration-300;
+  position: relative;
+  padding-left: 0;
+}
+
+.footer-links li::before {
+  content: "›";
+  position: absolute;
+  left: -12px;
+  opacity: 0;
+  transition: all 0.3s ease;
+  color: #38bdf8;
+}
+
+.footer-links li:hover {
+  @apply text-cyan-400;
+  transform: translateX(8px);
+  padding-left: 8px;
+}
+
+.footer-links li:hover::before {
+  opacity: 1;
+  left: -4px;
+}
+
+/* ============================================================
+   SECTION GLOW DIVIDERS
+   ============================================================ */
+
+.section-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(56, 189, 248, 0.3),
+    rgba(139, 92, 246, 0.3),
+    transparent
+  );
+  margin: 2rem 0;
+  position: relative;
+}
+
+.section-divider::after {
+  content: "✦";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(56, 189, 248, 0.3);
+  background: #020617;
+  padding: 0 1rem;
+  font-size: 12px;
+}
+
+/* ============================================================
+   NEON GLOW TEXT
+   ============================================================ */
+
+.neon-text {
+  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 4s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ============================================================
+   PULSE GLOW EFFECT
+   ============================================================ */
+
+.pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.1);
+  }
+  50% {
+    box-shadow:
+      0 0 40px rgba(56, 189, 248, 0.3),
+      0 0 80px rgba(56, 189, 248, 0.1);
+  }
+}
+
+/* ============================================================
+   FLOATING PARTICLES BACKGROUND
+   ============================================================ */
+
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.4), transparent);
+  border-radius: 50%;
+  animation: floatParticle 20s infinite linear;
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translateY(100vh) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) scale(1);
+    opacity: 0;
+  }
+}
+
+/* ============================================================
+   FLOATING ANIMATION
+   ============================================================ */
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 5s ease-in-out infinite;
+}
+
+/* ============================================================
+   HOVER SHINE EFFECT FOR CARDS & BUTTONS
+   ============================================================ */
+
+.shine-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-hover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.6s ease;
+  pointer-events: none;
+}
+
+.shine-hover:hover::before {
+  left: 100%;
+}
+
+/* ============================================================
+   SCROLL REVEAL ANIMATION
+   ============================================================ */
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-reveal {
+  animation: reveal 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+/* ============================================================
+   BORDER GLOW ANIMATION
+   ============================================================ */
+
+@keyframes border-glow {
+  0%,
+  100% {
+    border-color: rgba(56, 189, 248, 0.2);
+  }
+  50% {
+    border-color: rgba(56, 189, 248, 0.6);
+  }
+}
+
+.animate-border-glow {
+  animation: border-glow 3s ease-in-out infinite;
+}
+
+/* ============================================================
+   TEXT GRADIENT SHIMMER
+   ============================================================ */
+
+@keyframes text-shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    #38bdf8 0%,
+    #818cf8 25%,
+    #c084fc 50%,
+    #818cf8 75%,
+    #38bdf8 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shimmer 4s linear infinite;
+}
+
+/* ============================================================
+   RESPONSIVE FIXES
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .croma-mart {
+    width: 55px !important;
+    height: 55px !important;
+  }
+
+  .croma-mart span {
+    font-size: 1.2rem !important;
+  }
+}
+
+/* ============================================================
+   UTILITY GLOW CLASSES
+   ============================================================ */
+
+.glow-cyan {
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
+}
+
+.glow-cyan:hover {
+  box-shadow: 0 0 50px rgba(56, 189, 248, 0.4);
+}
+
+.glow-purple {
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.2);
+}
+
+.glow-purple:hover {
+  box-shadow: 0 0 50px rgba(139, 92, 246, 0.4);
+}
+
+/* ============================================================
+   LOADING SPINNER
+   ============================================================ */
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(56, 189, 248, 0.1);
+  border-top: 3px solid #38bdf8;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

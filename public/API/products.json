@@ -1,0 +1,162 @@
+[
+  {
+    "id": 1,
+    "name": "iPhone 17 Pro Max",
+    "category": "Mobiles",
+    "brand": "Apple",
+    "price": 149999,
+    "stock": 20,
+    "image": "/image/iphone_17.jpg",
+    "description": "Experience the future with iPhone 17 Pro Max. Powered by Apple's next-gen A19 Pro chip, it features a stunning Super Retina XDR display, advanced AI-driven photography, all-day battery life, and a premium titanium design built for performance and elegance."
+  },
+  {
+    "id": 2,
+    "name": "MacBook Pro 14-inch",
+    "category": "Computers",
+    "brand": "MacBook",
+    "price": 99999,
+    "stock": 50,
+    "image": "/image/lapi.png",
+    "description": "Experience powerful performance and sleek design with ExampleBrand's latest laptop. Equipped with a quad-core i5 processor, 8GB RAM, and a fast 256GB SSD, it ensures seamless multitasking and productivity. The stunning 14-inch Full HD display delivers crisp visuals for work and entertainment."
+  },
+  {
+    "id": 3,
+    "name": "CMF Headphones",
+    "category": "Audio",
+    "brand": "CMF",
+    "price": 14999,
+    "stock": 30,
+    "image": "/image/headphone.png",
+    "description": "Immerse yourself in superior sound with SoundBeats Wireless Headphones. Engineered for comfort and clarity, these over-ear headphones deliver rich audio and deep bass for up to 20 hours on a single charge."
+  },
+  {
+    "id": 4,
+    "name": "BOAT Smartwatch",
+    "category": "Wearables",
+    "brand": "Boat",
+    "price": 3999,
+    "stock": 20,
+    "image": "/image/watch.png",
+    "description": "Elevate your lifestyle with the FitTech Smartwatch. Designed with a brilliant 1.3-inch AMOLED display and a premium water-resistant finish."
+  },
+  {
+    "id": 5,
+    "name": "BOAT Speaker",
+    "category": "Audio",
+    "brand": "Sony",
+    "price": 9999,
+    "stock": 30,
+    "image": "/image/speakers.png",
+    "description": "Bring your music to life with SoundBeats Wireless Speakers. Featuring crisp highs, rich bass, and powerful Bluetooth connectivity."
+  },
+  {
+    "id": 6,
+    "name": "Samsung Smart TV",
+    "category": "Video",
+    "brand": "Samsung",
+    "price": 45999,
+    "stock": 20,
+    "image": "/image/tv.png",
+    "description": "Transform your viewing experience with the Samsung Smart TV. Enjoy cinematic visuals with vibrant colors and smart streaming capabilities."
+  },
+  {
+    "id": 7,
+    "name": "iPad Air Tablet",
+    "category": "Mobiles",
+    "brand": "Apple",
+    "price": 29999,
+    "stock": 40,
+    "image": "/image/tablet.png",
+    "description": "Discover portability and power combined in the iPad Air Tablet featuring Apple M3 chip."
+  },
+  {
+    "id": 8,
+    "name": "Gaming Console",
+    "category": "Gaming",
+    "brand": "PlayPro",
+    "price": 39999,
+    "stock": 25,
+    "image": "/image/console.png",
+    "description": "Step into next-gen gaming with the PlayPro Console featuring lightning-fast performance and 4K graphics."
+  },
+  {
+    "id": 9,
+    "name": "Canon DSLR Camera",
+    "category": "Photography",
+    "brand": "Canon",
+    "price": 35599,
+    "stock": 15,
+    "image": "/image/camera.png",
+    "description": "Capture every moment in stunning detail with the PixelShot DSLR Camera featuring 24.2MP sensor and 4K video recording."
+  },
+  {
+    "id": 10,
+    "name": "Samsung Galaxy S24 ultra",
+    "category": "Mobiles",
+    "brand": "Samsung",
+    "price": 18999,
+    "stock": 60,
+    "image": "/image/Samsung_S24.png",
+    "description": "Enjoy smooth performance and stunning visuals with this Samsung Android Smartphone."
+  },
+  {
+    "id": 11,
+    "name": "ONEPLUS 5G",
+    "category": "Mobiles",
+    "brand": "OnePlus",
+    "price": 32999,
+    "stock": 45,
+    "image": "/image/oneplus.png",
+    "description": "Experience blazing-fast 5G connectivity with the OnePlus Smartphone."
+  },
+  {
+    "id": 12,
+    "name": "ASUS Gaming Laptop",
+    "category": "Computers",
+    "brand": "ASUS",
+    "price": 75999,
+    "stock": 25,
+    "image": "/image/Asus_Laptop.jpg",
+    "description": "Unleash powerful gaming performance with the ASUS Gaming Laptop equipped with high-end GPU and fast SSD."
+  },
+  {
+    "id": 13,
+    "name": "HP 14S-DQ3036TU",
+    "category": "Computers",
+    "brand": "HP",
+    "price": 54999,
+    "stock": 30,
+    "image": "/image/HP_Laptop.jpg",
+    "description": "The HP Desktop Computer delivers reliable performance for home and office use."
+  },
+  {
+    "id": 14,
+    "name": "BOAT Airdopes Supreme",
+    "category": "Audio",
+    "brand": "Boat",
+    "price": 2999,
+    "stock": 80,
+    "image": "/image/boat.jpeg",
+    "description": "Enjoy crystal-clear sound with Boat Wireless Earbuds designed for comfort and long battery life."
+  },
+  {
+    "id": 15,
+    "name": "SONY WH-1000XM4",
+    "category": "Audio",
+    "brand": "Sony",
+    "price": 19999,
+    "stock": 20,
+    "image": "/image/sony.png",
+    "description": "Immerse yourself in premium sound with Sony Noise Cancelling Headphones."
+  },
+  {
+    "id": 16,
+    "name": "IPHONE 14 PRO MAX",
+    "category": "Mobiles",
+    "brand": "Apple",
+    "price": 49999,
+    "stock": 100,
+    "image": "/image/iphone.png",
+    "description": "Stay connected in style with this Apple Smartphone featuring powerful cameras and long battery life."
+  }
+]
