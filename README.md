@@ -1,55 +1,44 @@
 # Croma Mart – React E-Commerce Application
 
-Bhusan Mart is a **modern React-based e-commerce web application** that demonstrates real-world shopping cart functionality, global state management, product filtering, authentication flow, and a polished user interface.
+Croma Mart is a **modern React-based e-commerce web application** that demonstrates real-world shopping cart functionality, global state management, product filtering, authentication flow, and a polished user interface.
 
 The project is built with a focus on **clean architecture, reusable components, and practical business logic**, making it suitable for learning, portfolio showcase, and real-world frontend practice.
 
 ---
 ## Live Demo
 
-**Website:** https://bhusan-mart.vercel.app/  
-**GitHub Repository:** [https://github.com/IAmBiswabhusan/E-COMMERCE-WEBSITE-React](https://github.com/SRIKANTHBHAGYANAGARAJ/e-commerce-transaction-Platform.git)
+[Add your live demo link here]
+
+---
 
 ## Screenshots
 
 ### Home Page
-<img width="1920" height="1020" alt="Screenshot 2025-12-18 161316" src="https://github.com/user-attachments/assets/62aa0fe3-4989-4f8a-ba9b-5980dc8d5c17" />
+<img width="1917" height="922" alt="Home page" src="https://github.com/user-attachments/assets/d4b3d53f-63b2-4c9b-a26f-b948f64e6bf6" />
+
 
 ### Sign In Page
+<img width="955" height="410" alt="Sign_In_Page" src="https://github.com/user-attachments/assets/02f22780-1e91-4a03-b647-c4e3ba39b53f" />
 
-<img width="1920" height="1080" alt="Screenshot (1318)" src="https://github.com/user-attachments/assets/d0a888a4-4455-4ae9-a438-35d202911452" />
 
 ### Explore Product Section
-
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/d524bace-5f5e-46ce-a805-b30775640497" />
+<img width="957" height="413" alt="Explore Product Section" src="https://github.com/user-attachments/assets/53922b25-54b4-40a4-ac23-a7c6b1297ab5" />
 
 
 ### Filtering Product Based on Category or Price
-
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/0722f39b-03e8-41bf-afbf-fc91fdedd0cb" />
+<img width="932" height="403" alt="Filtering Product Based on Category or Price" src="https://github.com/user-attachments/assets/0a743ee2-4e96-4ecc-8512-eb04691337f9" />
 
 ### Add To Cart Page
+<img width="625" height="287" alt="Add To Cart Page" src="https://github.com/user-attachments/assets/c43b524f-5ab7-4b3c-a7ac-de969b06db29" />
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/2858d369-7213-4141-a53f-4bdc9ddbe6ae" />
-
-
-### View Product Details Page
-
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/a8bd1512-24de-452a-b40a-014110d9e000" />
-
-
-### Why Choose Bhusan Mart Section
-
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/f25261f3-46ed-4257-842c-5d712997132d" />
+### Why Choose Croma Mart Section
+<img width="1869" height="808" alt="Why Choose Croma Mart Section" src="https://github.com/user-attachments/assets/ee37fc07-58ac-4d58-b82f-1e0c0ff27e00" />
 
 ### Contact Us Section
+<img width="1126" height="746" alt="Contact Us Section" src="https://github.com/user-attachments/assets/175d1f6c-f77a-4dbf-988d-039b959ad492" />
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/62f713eb-189b-4128-b21a-1e306d87a258" />
 
-### Footer Section 
-
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/3bff0f93-559b-49b2-b507-c62e72e956be" />
-
+---
 
 ## Features
 
@@ -122,12 +111,24 @@ src/
 │   ├── ProductDetails.jsx
 │   ├── Signin.jsx
 │   ├── Signup.jsx
+│   ├── Contact.jsx
 │   └── OrderSuccess.jsx
+│
+├── assets/
+│   └── screenshots/
+│       ├── home.png
+│       ├── signin.png
+│       ├── products.png
+│       ├── filter.png
+│       ├── cart.png
+│       ├── why-choose.png
+│       └── contact.png
 │
 ├── App.jsx
 ├── main.jsx
 └── index.css
 ```
+
 ##  Getting Started
 
 ###  Clone the Repository
@@ -177,8 +178,8 @@ npm run preview
 
 ##  Author
 
-**Biswabhusan Mohapatra**  
+**Srikanth BN**  
 Aspiring Developer & React Enthusiast  
 
  Email: `srikanthbhagyanagaraj@gmail.com`  
-🔗 
+🔗
