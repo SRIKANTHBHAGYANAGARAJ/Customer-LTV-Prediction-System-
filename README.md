@@ -436,6 +436,7 @@ Customer-LTV-Prediction-System/
 │
 ├── LICENSE
 └── README.md
+```
 
 ###📚 What I Learned
 Generate realistic synthetic e-commerce data with natural language prompts
