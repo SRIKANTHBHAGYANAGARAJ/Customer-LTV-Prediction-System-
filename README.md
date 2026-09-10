@@ -201,6 +201,10 @@ A retail storefront built to showcase how LTV predictions can drive a real consu
 **Contact Us Section**
 <img width="1126" height="746" alt="Contact Us Section" src="https://github.com/user-attachments/assets/175d1f6c-f77a-4dbf-988d-039b959ad492" />
 
+**Power BI Dashboard**
+<img width="1151" height="652" alt="Power Bi Dashboard" src="https://github.com/user-attachments/assets/2bb182bd-b9e3-4b2b-bf37-92097d93c205" />
+
+
 ---
 
 ## 🛒 Frontend Features (Croma Mart)
