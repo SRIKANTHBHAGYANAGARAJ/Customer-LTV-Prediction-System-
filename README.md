@@ -362,7 +362,138 @@ python cli.py run-scheduler --interval 10 --cycles 3
 
 # Dashboard + API
 python app.py   # http://localhost:5000
+
+ ###REST API###
  
+curl -X POST localhost:5000/api/run
+curl localhost:5000/api/runs
+curl localhost:5000/api/runs/1
+curl localhost:5000/api/runs/1/segments/Champions
+
+###Tests ###
+
+pytest tests/ -v
+
+18 tests covering:
+
+Cohort retention math (including correctly excluding not-yet-eligible cohort/period pairs)
+
+The purchase-rate prior fit and posterior update
+
+Gamma-Gamma monetary shrinkage behavior
+
+Monte Carlo forecast correctness (dead customers contribute $0, determinism under a fixed seed, segment totals reconciling to the portfolio total)
+
+RFM segment assignment
+
+An end-to-end engine run that persists to and reads back from SQLite
+
+###Docker ###
+
+docker build -t clv-cohort-engine .
+docker run -p 5000:5000 clv-cohort-engine
+# or run the scheduler instead of the dashboard:
+docker run clv-cohort-engine python cli.py run-scheduler --interval 21600
+
+###📁 Project Structure
+
+Customer-LTV-Prediction-System/
+├── src/                          # React front-end source
+│   ├── components/               # Reusable UI components
+│   ├── contexts/                 # React Context (state management)
+│   ├── pages/                    # Application pages
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+├── public/                       # Static assets
+├── notebooks/                    # Snowflake ML notebooks (EDA, training, inference)
+├── docs/
+│   └── assets/                   # Architecture diagrams, screenshots, demo video
+│
+├── day17-clv-cohort-engine/      # Probabilistic CLV Cohort Engine
+│   ├── app.py                    # Flask REST API + dashboard
+│   ├── cli.py                    # command-line interface
+│   ├── make_sample_data.py       # regenerates sample_data/transactions.csv
+│   ├── config/
+│   │   └── settings.yaml         # data path, model priors, forecast horizon/sims, RFM quintiles
+│   ├── src/
+│   │   ├── cohort.py             # cohort retention table + population retention rate
+│   │   ├── clv_model.py          # Poisson-Gamma posterior, p_alive, Gamma-Gamma shrinkage
+│   │   ├── forecast.py           # Monte Carlo revenue simulation
+│   │   ├── segments.py           # RFM quintile scoring
+│   │   ├── narrative.py          # rule-based NLG over segment + forecast results
+│   │   ├── db.py                 # SQLite schema
+│   │   ├── engine.py             # orchestrates the full pipeline
+│   │   └── scheduler.py          # fixed-interval recompute loop
+│   ├── templates/
+│   │   └── dashboard.html        # KPI cards, forecast chart, retention heatmap
+│   ├── sample_data/
+│   │   └── transactions.csv      # 600 synthetic customers, 12 monthly cohorts
+│   ├── tests/                    # 18 tests covering all modules
+│   ├── requirements.txt
+│   └── Dockerfile
+│
+├── LICENSE
+└── README.md
+
+###📚 What I Learned
+Generate realistic synthetic e-commerce data with natural language prompts
+
+Perform comprehensive EDA with automated feature recommendations
+
+Train and compare multiple regression models (XGBoost vs LightGBM vs Random Forest)
+
+Log models with metrics to the Snowflake Model Registry
+
+Run batch inference on a Snowflake Warehouse
+
+Build a full-stack React application with AWS integration
+
+Implement state management with React Context API
+
+Deploy with CI/CD pipeline on Netlify
+
+Combine multiple analytical techniques (empirical-Bayes shrinkage, Monte Carlo simulation, cohort retention, RFM segmentation) into one coherent pipeline
+
+Quantify uncertainty with probabilistic modeling instead of single point estimates
+
+Build transparent, explainable ML models that a BI analyst can present to a stakeholder
+
+###🙏 Acknowledgments
+Sho Tanaka — Lead Developer Advocate @ Snowflake | AI Agents, ML/LLMOps, OSS - Google Developer Expert AI
+
+Snowflake Cortex Code Quickstart — https://github.com/Snowflake-Labs/sfquickstarts
+
+🤝 Contributing
+Contributions, issues, and feature requests are welcome. Feel free to open a pull request or file an issue.
+
+📄 License
+This project is licensed under the Apache License 2.0.
+
+👤 Author
+Srikanth Bhagya Nagaraj
+
+GitHub: SRIKANTHBHAGYANAGARAJ
+
+Live Demo: croma-mart.netlify.app
+
+Email: srikanthbhagyanagaraj@gmail.com
+
+⭐ Star the Repository
+If you found this project useful, please give it a star!
+
+text
+
+---
+
+**✅ This is the complete, final, merged README.md.** It includes:
+- ✅ Your original Croma Mart React app details (features, screenshots, tech stack)
+- ✅ Snowflake LTV Prediction System with **actual model metrics** (Random Forest R²=0.78, MAE=$2,419.87)
+- ✅ The full **CLV Cohort Engine** architecture with Poisson-Gamma, Gamma-Gamma, Monte Carlo, RFM segmentation, Flask API, SQLite persistence, Docker, and 18 tests
+- ✅ Complete project structure, running instructions, limitations, and acknowledgments
+
+**Just copy the entire code block above and paste it to replace your existing `README.md` on GitHub!** 🚀
+
 
 ---
 
