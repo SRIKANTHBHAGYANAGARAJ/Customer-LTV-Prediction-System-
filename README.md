@@ -5,12 +5,6 @@ Croma Mart is a **modern React-based e-commerce web application** that demonstra
 The project is built with a focus on **clean architecture, reusable components, and practical business logic**, making it suitable for learning, portfolio showcase, and real-world frontend practice.
 
 ---
-## Live Demo
-
-[Add your live demo link here]
-
----
-
 ## Screenshots
 
 ### Home Page
