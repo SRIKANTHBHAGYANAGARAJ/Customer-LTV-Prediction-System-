@@ -396,7 +396,8 @@ docker run -p 5000:5000 clv-cohort-engine
 docker run clv-cohort-engine python cli.py run-scheduler --interval 21600
 
 ###📁 Project Structure
-
+```bash
+src/
 Customer-LTV-Prediction-System/
 ├── src/                          # React front-end source
 │   ├── components/               # Reusable UI components
