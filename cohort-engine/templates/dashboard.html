@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CLV & Cohort Retention Engine</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  body { font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; background: #0f1115; color: #e6e6e6; }
+  header { padding: 20px 28px; border-bottom: 1px solid #262a33; display: flex; justify-content: space-between; align-items: center; }
+  header h1 { font-size: 20px; margin: 0; }
+  .container { padding: 24px 28px; max-width: 1200px; margin: 0 auto; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 28px; }
+  .card { background: #171a21; border: 1px solid #262a33; border-radius: 10px; padding: 16px 18px; }
+  .card .label { font-size: 12px; color: #9aa0ab; text-transform: uppercase; letter-spacing: .04em; }
+  .card .value { font-size: 26px; font-weight: 600; margin-top: 6px; }
+  section { margin-bottom: 32px; }
+  h2 { font-size: 15px; color: #c7cbd4; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #262a33; }
+  th { color: #9aa0ab; font-weight: 500; }
+  .heat-cell { text-align: center; border-radius: 4px; font-size: 12px; }
+  .run-btn { background: #4f7cff; color: white; border: none; padding: 9px 16px; border-radius: 7px; cursor: pointer; font-size: 13px; }
+  .run-btn:hover { background: #3f68e0; }
+  .chart-wrap { background: #171a21; border: 1px solid #262a33; border-radius: 10px; padding: 16px; }
+  .segment-narrative { font-size: 13px; color: #b7bcc6; margin-top: 4px; }
+  .empty { color: #9aa0ab; font-size: 14px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>CLV & Cohort Retention Analytics Engine</h1>
+  <button class="run-btn" onclick="runNow()">Run new analysis</button>
+</header>
+<div class="container">
+{% if not latest %}
+  <p class="empty">No runs yet. Click "Run new analysis" or run <code>python cli.py compute</code>.</p>
+{% else %}
+  <div class="cards">
+    <div class="card"><div class="label">Run #</div><div class="value">{{ latest.id }}</div></div>
+    <div class="card"><div class="label">Customers</div><div class="value">{{ latest.num_customers }}</div></div>
+    <div class="card"><div class="label">Forecast Mean ({{ latest.horizon_days }}d)</div><div class="value">${{ '{:,.0f}'.format(latest.forecast_mean) }}</div></div>
+    <div class="card"><div class="label">P10 - P90</div><div class="value">${{ '{:,.0f}'.format(latest.forecast_p10) }} - ${{ '{:,.0f}'.format(latest.forecast_p90) }}</div></div>
+  </div>
+
+  <section>
+    <h2>Segment Forecast Revenue</h2>
+    <div class="chart-wrap"><canvas id="segChart" height="90"></canvas></div>
+  </section>
+
+  <section>
+    <h2>Segments</h2>
+    <table>
+      <tr><th>Segment</th><th>Customers</th><th>% of base</th><th>Avg P(alive)</th><th>Forecast revenue</th><th>Narrative</th></tr>
+      {% for s in segments %}
+      <tr>
+        <td>{{ s.segment }}</td>
+        <td>{{ s.num_customers }}</td>
+        <td>{{ s.pct_of_base }}%</td>
+        <td>{{ '%.0f' % (s.avg_p_alive * 100) }}%</td>
+        <td>${{ '{:,.0f}'.format(s.forecast_revenue or 0) }}</td>
+        <td class="segment-narrative">{{ s.narrative }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </section>
+
+  <section>
+    <h2>Cohort Retention (% active by 30-day period since acquisition)</h2>
+    <table id="retentionTable"></table>
+  </section>
+
+  <section>
+    <h2>Recent Runs</h2>
+    <table>
+      <tr><th>Run</th><th>Started</th><th>Customers</th><th>Forecast Mean</th></tr>
+      {% for r in runs %}
+      <tr><td>#{{ r.id }}</td><td>{{ r.started_at }}</td><td>{{ r.num_customers }}</td><td>${{ '{:,.0f}'.format(r.forecast_mean) }}</td></tr>
+      {% endfor %}
+    </table>
+  </section>
+{% endif %}
+</div>
+
+<script>
+const segments = {{ segments | tojson }};
+const retention = {{ retention | tojson }};
+
+if (segments.length) {
+  new Chart(document.getElementById('segChart'), {
+    type: 'bar',
+    data: {
+      labels: segments.map(s => s.segment),
+      datasets: [{ label: 'Forecast revenue ($)', data: segments.map(s => s.forecast_revenue || 0), backgroundColor: '#4f7cff' }]
+    },
+    options: { responsive: true, plugins: { legend: { display: false } },
+      scales: { x: { ticks: { color: '#c7cbd4' } }, y: { ticks: { color: '#c7cbd4' } } } }
+  });
+}
+
+if (retention.length) {
+  const cohorts = [...new Set(retention.map(r => r.cohort))].sort();
+  const periods = [...new Set(retention.map(r => r.period))].sort((a,b) => a-b);
+  let html = '<tr><th>Cohort</th>' + periods.map(p => `<th>P${p}</th>`).join('') + '</tr>';
+  for (const c of cohorts) {
+    html += `<tr><td>${c}</td>`;
+    for (const p of periods) {
+      const cell = retention.find(r => r.cohort === c && r.period === p);
+      if (!cell) { html += '<td></td>'; continue; }
+      const pct = cell.pct_active;
+      const alpha = Math.max(0.08, pct / 100);
+      html += `<td class="heat-cell" style="background: rgba(79,124,255,${alpha})">${pct.toFixed(0)}%</td>`;
+    }
+    html += '</tr>';
+  }
+  document.getElementById('retentionTable').innerHTML = html;
+}
+
+function runNow() {
+  fetch('/api/run', { method: 'POST' }).then(r => r.json()).then(() => location.reload());
+}
+</script>
+</body>
+</html>

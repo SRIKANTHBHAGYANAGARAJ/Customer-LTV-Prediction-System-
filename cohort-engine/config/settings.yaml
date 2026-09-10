@@ -1,0 +1,26 @@
+# Day 17 - CLV & Cohort Retention Analytics Engine
+# Central configuration for data generation, model fitting, and forecasting.
+
+data:
+  transactions_csv: sample_data/transactions.csv
+  as_of_date: "2026-06-30"   # fixed reference date the model treats as "today"
+
+model:
+  # Poisson-Gamma (empirical Bayes) purchase-rate model params are fit from
+  # data via method of moments -- nothing hardcoded here except priors' floor.
+  min_prior_shape: 0.5
+  # Gamma-Gamma monetary shrinkage prior shape floor
+  min_monetary_shape: 1.0
+
+forecast:
+  horizon_days: 90
+  num_simulations: 2000
+  random_seed: 42
+  monetary_dispersion_shape: 6.0   # shape used when sampling per-purchase value around a customer's estimate
+
+segments:
+  # RFM quintile scoring: 5 = best, 1 = worst on each dimension
+  quintiles: 5
+
+scheduler:
+  default_interval_seconds: 21600  # 6 hours
