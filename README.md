@@ -341,6 +341,27 @@ npm run preview
 
 
  ## Running the CLV Cohort Engine
+
+ # Install dependencies
+pip install -r requirements.txt
+
+# (optional) regenerate sample data — already checked in with a fixed seed
+python make_sample_data.py
+
+# CLI: run the full pipeline once
+python cli.py compute
+
+# Inspect history
+python cli.py list-runs
+python cli.py show-run 1
+python cli.py list-segments 1
+python cli.py show-segment 1 Champions
+
+# Run the scheduler for a fixed number of cycles (demo) — every 10s, 3 cycles
+python cli.py run-scheduler --interval 10 --cycles 3
+
+# Dashboard + API
+python app.py   # http://localhost:5000
  
 
 ---
