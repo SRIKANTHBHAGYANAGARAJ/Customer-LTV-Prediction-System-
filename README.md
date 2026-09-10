@@ -338,6 +338,9 @@ npm run preview
 -  Smooth transitions and hover effects  
 -  Responsive layout for desktop and mobile  
 -  Intuitive cart and checkout experience  
+
+
+ ## Running the CLV Cohort Engine
  
 
 ---
