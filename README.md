@@ -111,36 +111,99 @@ ACTIVE_MONTHS
 AVG_DAYS_BETWEEN_PURCHASES
 
 ---
-## Screenshots
-
-### Home Page
-<img width="1917" height="922" alt="Home page" src="https://github.com/user-attachments/assets/d4b3d53f-63b2-4c9b-a26f-b948f64e6bf6" />
-
-
-### Sign In Page
-<img width="955" height="410" alt="Sign_In_Page" src="https://github.com/user-attachments/assets/02f22780-1e91-4a03-b647-c4e3ba39b53f" />
-
-
-### Explore Product Section
-<img width="957" height="413" alt="Explore Product Section" src="https://github.com/user-attachments/assets/53922b25-54b4-40a4-ac23-a7c6b1297ab5" />
-
-
-### Filtering Product Based on Category or Price
-<img width="932" height="403" alt="Filtering Product Based on Category or Price" src="https://github.com/user-attachments/assets/0a743ee2-4e96-4ecc-8512-eb04691337f9" />
-
-### Add To Cart Page
-<img width="625" height="287" alt="Add To Cart Page" src="https://github.com/user-attachments/assets/c43b524f-5ab7-4b3c-a7ac-de969b06db29" />
-
-### Why Choose Croma Mart Section
-<img width="1869" height="808" alt="Why Choose Croma Mart Section" src="https://github.com/user-attachments/assets/ee37fc07-58ac-4d58-b82f-1e0c0ff27e00" />
-
-### Contact Us Section
-<img width="1126" height="746" alt="Contact Us Section" src="https://github.com/user-attachments/assets/175d1f6c-f77a-4dbf-988d-039b959ad492" />
-
 
 ---
 
-## Features
+## 🧰 Tech Stack
+
+| Layer | Tools |
+|-------|-------|
+| Data & ML (Snowflake) | Snowflake, Snowflake ML, Cortex Code |
+| Models (Snowflake) | XGBoost, LightGBM, Random Forest |
+| Model Ops | Snowflake Model Registry, Snowflake Warehouse (batch inference) |
+| Front End | ReactJS (Vite), Context API, React Router DOM |
+| Styling | Tailwind CSS, React Icons, Font Awesome |
+| Notifications | React Toastify |
+| Storage | Browser LocalStorage |
+| CLV Engine | Python, NumPy, SciPy, Flask, SQLite, Monte Carlo |
+| Hosting | AWS, Netlify (edge delivery) |
+| Containerization | Docker |
+
+---
+
+## 📊 Dataset
+
+Synthetic transaction data generated conversationally with Cortex Code:
+
+| Column | Description |
+|--------|-------------|
+| `CUSTOMER_ID` | Unique customer identifier |
+| `TRANSACTION_TIME` | Timestamp of purchase |
+| `AMOUNT` | Transaction value (varies by category) |
+| `PRODUCT_CATEGORY` | Electronics, Groceries, Apparel, etc. |
+| `CHANNEL` | Web, Mobile, or In-store |
+
+~10% of customers are modeled as high-value (frequent buyers with higher average spend).
+
+The **CLV Cohort Engine** additionally ships with a `sample_data/transactions.csv` containing **600 synthetic customers across 12 monthly cohorts (~1,300 orders)** with a fixed random seed for reproducibility.
+
+---
+
+## 🔬 Snowflake ML Pipeline
+
+1. **Generate synthetic data** — realistic transactions with varying purchase frequency, category-based pricing, and channel mix
+2. **Exploratory Data Analysis** — identify purchase frequency, recency, and spend patterns to inform feature selection
+3. **Feature engineering (natural language, via Cortex Code)** — per-customer aggregations: `RECENCY_DAYS`, `TENURE_DAYS`, `TXN_COUNT_LIFETIME`, `TXN_COUNT_LAST_90D`, `TXN_COUNT_LAST_180D`, `ACTIVE_MONTHS`, `AVG_DAYS_BETWEEN_PURCHASES`
+4. **Model training** — train and evaluate XGBoost, Random Forest, and LightGBM on an 80/20 train/eval split, comparing RMSE, MAE, and R²
+5. **Model registry** — log the best-performing model with metrics, version control, and deployment info to the Snowflake Model Registry
+6. **Inference** — run batch predictions for customer 90-day LTV via Snowflake Warehouse, ranked by predicted value
+
+---
+
+## 📊 CLV Cohort Engine — The Model, Briefly
+
+For each customer, given their observed order history up to `as_of_date`:
+
+1. **Purchase rate.** Assume purchases follow a Poisson process with an individual daily rate λ, and λ ~ Gamma(r, α) across the population. Fit (r, α) from the population's observed rates via method of moments, then use the closed-form conjugate posterior Gamma(r + xᵢ, α + Tᵢ) for each customer (xᵢ = repeat orders, Tᵢ = customer age in days). This is the standard Poisson-Gamma / "Gamma-Poisson" building block behind BG/NBD-style CLV models.
+
+2. **Probability still active.** The population's month-over-month retention rate is estimated from the cohort curve, then raised to the power of "how many 30-day periods since this customer's last order" as a recency-decayed `p_alive`. This is an explicit simplification of the Beta-Geometric dropout process used in full BG/NBD models.
+
+3. **Monetary value.** Each customer's average order value is shrunk toward the population mean using the classic Gamma-Gamma empirical-Bayes formula, so low-frequency customers regress toward the population average and high-frequency customers are trusted more.
+
+4. **Forecast.** Monte Carlo simulation draws thousands of possible futures from (1)–(3) to produce a revenue distribution over the configured horizon (default 90 days), both overall and per RFM segment.
+
+---
+
+## 🖥️ Front End — Croma Mart
+
+A retail storefront built to showcase how LTV predictions can drive a real consumer experience: wide product selection, quality assurance, competitive pricing, expert guidance, convenient checkout, and dedicated support.
+
+### Screenshots
+
+**Home Page**
+<img width="1917" height="922" alt="Home page" src="https://github.com/user-attachments/assets/d4b3d53f-63b2-4c9b-a26f-b948f64e6bf6" />
+
+**Sign In Page**
+<img width="955" height="410" alt="Sign_In_Page" src="https://github.com/user-attachments/assets/02f22780-1e91-4a03-b647-c4e3ba39b53f" />
+
+**Explore Product Section**
+<img width="957" height="413" alt="Explore Product Section" src="https://github.com/user-attachments/assets/53922b25-54b4-40a4-ac23-a7c6b1297ab5" />
+
+**Filtering Product Based on Category or Price**
+<img width="932" height="403" alt="Filtering Product Based on Category or Price" src="https://github.com/user-attachments/assets/0a743ee2-4e96-4ecc-8512-eb04691337f9" />
+
+**Add To Cart Page**
+<img width="625" height="287" alt="Add To Cart Page" src="https://github.com/user-attachments/assets/c43b524f-5ab7-4b3c-a7ac-de969b06db29" />
+
+**Why Choose Croma Mart Section**
+<img width="1869" height="808" alt="Why Choose Croma Mart Section" src="https://github.com/user-attachments/assets/ee37fc07-58ac-4d58-b82f-1e0c0ff27e00" />
+
+**Contact Us Section**
+<img width="1126" height="746" alt="Contact Us Section" src="https://github.com/user-attachments/assets/175d1f6c-f77a-4dbf-988d-039b959ad492" />
+
+---
+
+## 🛒 Frontend Features (Croma Mart)
 
 ### Product Management
 - Product listing with **image, name, price, category, and stock**
@@ -175,15 +238,18 @@ AVG_DAYS_BETWEEN_PURCHASES
 
 ---
 
-## Tech Stack
+## 🚀 Getting Started
 
-- **Frontend:** ReactJS (Vite)
-- **State Management:** React Context API
-- **Routing:** React Router DOM
-- **Styling:** Tailwind CSS
-- **Icons:** React Icons, Font Awesome
-- **Notifications:** React Toastify
-- **Storage:** Browser LocalStorage
+```bash
+# Clone the repository
+git clone https://github.com/SRIKANTHBHAGYANAGARAJ/Customer-LTV-Prediction-System-.git
+cd Customer-LTV-Prediction-System-
+
+# Install front-end dependencies
+npm install
+
+# Run locally
+npm start
 
 ---
 ## 📁 Project Structure
