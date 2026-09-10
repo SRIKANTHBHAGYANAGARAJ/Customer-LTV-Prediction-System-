@@ -192,8 +192,7 @@ A retail storefront built to showcase how LTV predictions can drive a real consu
 **Filtering Product Based on Category or Price**
 <img width="932" height="403" alt="Filtering Product Based on Category or Price" src="https://github.com/user-attachments/assets/0a743ee2-4e96-4ecc-8512-eb04691337f9" />
 
-**Add To Cart Page**
-<img width="625" height="287" alt="Add To Cart Page" src="https://github.com/user-attachments/assets/c43b524f-5ab7-4b3c-a7ac-de969b06db29" />
+
 
 **Why Choose Croma Mart Section**
 <img width="1869" height="808" alt="Why Choose Croma Mart Section" src="https://github.com/user-attachments/assets/ee37fc07-58ac-4d58-b82f-1e0c0ff27e00" />
